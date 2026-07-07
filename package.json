@@ -4,13 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JBedoyaSalazar/GraphQL.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JBedoyaSalazar/GraphQL/issues"
+  },
+  "homepage": "https://github.com/JBedoyaSalazar/GraphQL#readme",
   "dependencies": {
+    "express": "^5.2.1",
+    "express-graphql": "^0.12.0",
     "graphql": "^17.0.2"
   }
 }
