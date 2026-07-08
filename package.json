@@ -24,10 +24,12 @@
     },
     "homepage": "https://github.com/JBedoyaSalazar/GraphQL#readme",
     "dependencies": {
+        "dotenv": "^17.4.2",
         "express": "^5.2.1",
         "express-graphql": "^0.12.0",
         "graphql": "^15.10.2",
-        "graphql-tools": "^8.3.20"
+        "graphql-tools": "^8.3.20",
+        "mongo": "^0.1.0"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
