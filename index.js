@@ -1,32 +1,32 @@
 "use strict";
 
-const { graphql, buildSchema } = require("graphql");
-const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
+import { makeExecutableSchema } from "graphql-tools";
+import express from "express";
+import { graphqlHTTP } from "express-graphql";
+import { readFileSync } from "fs";
+import path from "path";
+import root from "./lib/resolvers.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
+const typeDefs = readFileSync(path.resolve("lib", "schema.graphql"), "utf-8");
 
-const schema = buildSchema(`
-    type Query {
-        hello: String
-        saludo: String
-    }
-`);
+const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers: root,
+});
 
-const root = {
-  hello: () => "Hello GRAPHQL!",
-  saludo: () => "Hey There! This is a greeting from GraphQL!"
-};
-
-app.use("/api", graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true
-}));
+app.use(
+    "/api",
+    graphqlHTTP({
+        schema,
+        rootValue: root,
+        graphiql: true,
+    })
+);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/api`);
+    console.log(`Server is running on http://localhost:${PORT}/api`);
 });
