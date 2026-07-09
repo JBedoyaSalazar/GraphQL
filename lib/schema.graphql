@@ -1,16 +1,38 @@
+"Valida los tipos de nivel"
+enum Level {
+    BEGINNER
+    INTERMEDIATE
+    ADVANCED
+}
+
 type Course {
     _id: ID!
     title: String!
     teacher: String
     description: String!
     topic: String
-    students: [Student]
+    students: [Person]
+    level: Level
 }
 
-type Student {
+interface Person {
     _id: ID!
     name: String!
     email: String!
+}
+
+type Student implements Person {
+    _id: ID!
+    name: String!
+    email: String!
+    avatar: String
+}
+
+type Monitor implements Person {
+    _id: ID!
+    name: String!
+    email: String!
+    phone: String
 }
 
 type Query {
@@ -18,10 +40,10 @@ type Query {
     getCourses: [Course]
     "Returns a single course by ID"
     getCourse(id: ID!): Course
-    "Returns all students"
-    getStudents: [Student]
-    "Returns a single student by ID"
-    getStudent(id: ID!): Student
+    "Returns all people"
+    getPeople: [Person]
+    "Returns a single person by ID"
+    getPerson(id: ID!): Person
 }
 
 type Mutation {
@@ -29,12 +51,12 @@ type Mutation {
     createCourse(input: CourseInput!): Course
     "Update an existing course"
     updateCourse(id: ID!, input: CourseInputUpdate!): Course
-    "Create a new student"
-    createStudent(input: StudentInput!): Student
-    "Update an existing student"
-    updateStudent(id: ID!, input: StudentInputUpdate!): Student
-    "Adding a student to a course"
-    addStudentToCourse(courseId: ID!, studentId: ID!): Course
+    "Create a new Person"
+    createPerson(input: PersonInput!): Person
+    "Update an existing Person"
+    updatePerson(id: ID!, input: PersonInputUpdate!): Person
+    "Adding a Person to a course"
+    addPersonToCourse(courseId: ID!, PersonId: ID!): Course
 }
 
 input CourseInput {
@@ -42,6 +64,7 @@ input CourseInput {
     teacher: String
     description: String!
     topic: String
+    level: Level
 }
 
 input CourseInputUpdate {
@@ -51,13 +74,17 @@ input CourseInputUpdate {
     topic: String
 }
 
-input StudentInput {
+input PersonInput {
     name: String!
     email: String!
+    phone: String
+    avatar: String
 }
 
-input StudentInputUpdate {
+input PersonInputUpdate {
     name: String
     email: String
+    phone: String
+    avatar: String
 }
 
