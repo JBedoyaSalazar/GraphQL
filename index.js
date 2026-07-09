@@ -1,16 +1,20 @@
 "use strict";
-import dotenv from "dotenv/config";
+import _dotenv from "dotenv/config";
 import { makeExecutableSchema } from "graphql-tools";
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import { readFileSync } from "fs";
 import path from "path";
 import root from "./lib/resolvers.js";
+import cors from "cors";
 import { config } from "./config/config.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = config.PORT;
+const isDevelopment = config.NODE_ENV !== "production";
+
 app.use(express.json());
+app.use(cors());
 
 const typeDefs = readFileSync(path.resolve("lib", "schema.graphql"), "utf-8");
 
@@ -24,7 +28,7 @@ app.use(
     graphqlHTTP({
         schema,
         rootValue: root,
-        graphiql: true,
+        graphiql: isDevelopment,
     })
 );
 

@@ -5,4 +5,6 @@ export const config = {
     DB_PORT: process.env.DB_PORT,
     DB_NAME: process.env.DB_NAME,
     MONGO_URI: process.env.MONGO_URI,
+    PORT: process.env.PORT || 3000,
+    NODE_ENV: process.env.NODE_ENV
 };
