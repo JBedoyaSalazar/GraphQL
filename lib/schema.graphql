@@ -5,13 +5,15 @@ enum Level {
     ADVANCED
 }
 
+union GlobalSearch = Course | Student | Monitor
+
 type Course {
     _id: ID!
     title: String!
     teacher: String
     description: String!
-    topic: String
-    students: [Person]
+    topic: String @deprecated(reason: "Use 'subject' instead")
+    people: [Person]
     level: Level
 }
 
@@ -44,6 +46,8 @@ type Query {
     getPeople: [Person]
     "Returns a single person by ID"
     getPerson(id: ID!): Person
+    "Searches for courses, students, or monitors by a search term"
+    searchItems(keyword: String!): [GlobalSearch]
 }
 
 type Mutation {
